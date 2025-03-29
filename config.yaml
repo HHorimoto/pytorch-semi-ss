@@ -1,5 +1,7 @@
 config:
   root: "./data/"
-  epochs: 10
+  epochs: 5
   batch_size: 16
   learning_rate: 0.001
+  weight: 1.0
+  method: "ssl" # "sl"
