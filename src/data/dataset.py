@@ -47,26 +47,26 @@ def create_dataset(root='./data/', download=True, batch_size=16):
         Normalize((0.4914, 0.4822, 0.4465), (0.2470, 0.2435, 0.2616)),
     ])
 
-    total_trainset = datasets.CIFAR10(root=root, train=True, download=download, transform=transform)
+    trainset = datasets.CIFAR10(root=root, train=True, download=download, transform=transform)
     unsup_trainset = datasets.CIFAR10(root=root, train=True,  download=download, transform=None)
     testset = datasets.CIFAR10(root=root, train=False, download=download, transform=transform)
 
-    label_idxs, unlabel_idxs = x_u_split(total_trainset)
+    label_idxs, unlabel_idxs = x_u_split(trainset)
 
-    trainset = Subset(total_trainset, label_idxs)
-    train_labels = [total_trainset.targets[idx] for idx in label_idxs]
-    trainset.train_labels = train_labels
+    supset = Subset(trainset, label_idxs)
+    train_labels = [trainset.targets[idx] for idx in label_idxs]
+    supset.train_labels = train_labels
 
     unsupset = Subset(unsup_trainset, unlabel_idxs)
     unsupset = UnsupervisedDataset(unsupset, unsup_transform, unsup_transform)
 
-    unsup_batch_size = int(batch_size * (len(unsupset)/len(trainset)))
+    unsup_batch_size = int(batch_size * (len(unsupset)/len(supset)))
 
-    train_loader = DataLoader(trainset, batch_size, shuffle=True, num_workers=2, 
+    sup_loader = DataLoader(supset, batch_size, shuffle=True, num_workers=2, 
                               pin_memory=True, worker_init_fn=worker_init_fn, drop_last=True)
     unsup_loader = DataLoader(unsupset, unsup_batch_size, shuffle=True, num_workers=2, 
                               pin_memory=True, worker_init_fn=worker_init_fn, drop_last=True)
     test_loader  = DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=2, 
                               pin_memory=True, worker_init_fn=worker_init_fn, drop_last=False)
     
-    return train_loader, unsup_loader, test_loader
+    return sup_loader, unsup_loader, test_loader
