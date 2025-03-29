@@ -5,6 +5,9 @@
 data/*
 !data/.gitkeep
 
+!src/data/
+!src/data/**
+
 # log
 log/*
 !log/.gitkeep
