@@ -28,7 +28,7 @@ The test loss of **SSL** continues to decrease, suggesting better generalization
 | SSL | **0.43** |
 
 
-<img src="./media/ssl-loss.png" width="40%">
+<img src="./media/ssl-loss.png" width="50%">
 
 #### Reference
 [1] [https://github.com/machine-perception-robotics-group/MPRGDeepLearningLectureNotebook/blob/master/11_cnn_pytorch/13_semi_supervised_learning.ipynb](https://github.com/machine-perception-robotics-group/MPRGDeepLearningLectureNotebook/blob/master/11_cnn_pytorch/13_semi_supervised_learning.ipynb)
