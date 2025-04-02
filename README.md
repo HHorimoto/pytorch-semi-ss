@@ -8,7 +8,7 @@ $ cd pytorch-semi-ss
 $ ~/python3.10/bin/python3 -m venv .venv
 $ . .venv/bin/activate
 $ pip install -r requirements.txt
-$ source run_.sh
+$ source run.sh
 ```
 
 ## Features
